@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#D7CCC8">
+
+    <!-- TOP BAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#66000000"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Luxury Store"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txtLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/txtCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cart"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/txtAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+    <!-- Page Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#4E342E"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Total Amount -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="space_between"
+        android:padding="16dp"
+        android:background="#C8B6A6"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:text="Total Amount:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#4E342E"/>
+
+        <TextView
+            android:id="@+id/txtTotalAmount"
+            android:text="$370"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#4E342E"/>
+    </LinearLayout>
+
+    <!-- Payment Methods -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Payment Method:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#4E342E"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Apple Pay -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#D7CCC8"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/apple_pay"
+                android:contentDescription="Apple Pay"/>
+
+            <TextView
+                android:text="Apple Pay"
+                android:textSize="18sp"
+                android:textColor="#4E342E"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- PayPal -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#D7CCC8"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/paypal"
+                android:contentDescription="PayPal"/>
+
+            <TextView
+                android:text="PayPal"
+                android:textSize="18sp"
+                android:textColor="#4E342E"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+        <!-- Credit Card (Visa) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#D7CCC8"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/visa"
+                android:contentDescription="Credit Card"/>
+
+            <TextView
+                android:text="Credit Card (Visa)"
+                android:textSize="18sp"
+                android:textColor="#4E342E"
+                android:layout_marginStart="16dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Pay Button -->
+    <Button
+        android:id="@+id/btnPay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Pay Now"
+        android:textColor="#FFFFFF"
+        android:background="#8D6E63"
+        android:textSize="18sp"
+        android:layout_marginTop="24dp"/>
+
+</LinearLayout>
