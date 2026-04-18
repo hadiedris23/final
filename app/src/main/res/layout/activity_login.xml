@@ -50,6 +50,14 @@
                 android:padding="8dp"/>
 
             <TextView
+                android:id="@+id/txtHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textColor="#FFFFFF"
+                android:padding="8dp"/>
+
+            <TextView
                 android:id="@+id/txtCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,14 +91,13 @@
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Email"
-            android:padding="16dp"
-            android:background="#D7CCC8"
-            android:textColor="#4E342E"
-            android:textColorHint="#4E342E"
             android:layout_marginBottom="16dp"
+            android:background="#D7CCC8"
+            android:hint="Email"
             android:inputType="textEmailAddress"
-            android:hintTextColor="#4E342E"/>
+            android:padding="16dp"
+            android:textColor="#4E342E"
+            android:textColorHint="#4E342E" />
 
         <!-- Password Input -->
         <EditText
@@ -103,8 +110,7 @@
             android:textColor="#4E342E"
             android:textColorHint="#4E342E"
             android:layout_marginBottom="24dp"
-            android:inputType="textPassword"
-            android:hintTextColor="#4E342E"/>
+            android:inputType="textPassword"/>
 
         <!-- Login Button -->
         <Button
@@ -113,7 +119,6 @@
             android:layout_height="50dp"
             android:text="Login"
             android:textColor="#FFFFFF"
-            android:shadowColor="#C4A484"
             android:background="#8D6E63"
             android:textSize="18sp"/>
 

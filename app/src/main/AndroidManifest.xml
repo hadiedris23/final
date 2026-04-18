@@ -15,7 +15,19 @@
             android:name=".kitchen"
             android:exported="false" />
         <activity
+            android:name=".chairactivity"
+            android:exported="false" />
+        <activity
+            android:name=".bedroom"
+            android:exported="false" />
+        <activity
             android:name=".livingroom"
+            android:exported="false" />
+        <activity
+            android:name=".ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CategoryActivity"
             android:exported="false" />
         <activity
             android:name=".login"
@@ -31,6 +43,9 @@
             android:exported="false" />
         <activity
             android:name=".store"
+            android:exported="false" />
+        <activity
+            android:name=".ProductActivity"
             android:exported="false" />
         <activity
             android:name=".home"

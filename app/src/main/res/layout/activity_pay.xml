@@ -32,6 +32,14 @@
             android:padding="8dp"/>
 
         <TextView
+            android:id="@+id/txtHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"/>
+
+        <TextView
             android:id="@+id/txtCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,12 +72,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="space_between"
+        android:gravity="center_vertical"
         android:padding="16dp"
         android:background="#C8B6A6"
         android:layout_marginBottom="24dp">
 
         <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Total Amount:"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -77,6 +88,8 @@
 
         <TextView
             android:id="@+id/txtTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="$370"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -112,7 +125,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/apple_pay"
+                android:src="@drawable/google_p"
                 android:contentDescription="Apple Pay"/>
 
             <TextView

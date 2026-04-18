@@ -44,3 +44,19 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+
+tasks.register("fixDuplicates") {
+    doLast {
+        delete(
+            "src/main/res/drawable/apple_pay.xml",
+            "src/main/res/drawable/paypal.xml",
+            "src/main/res/drawable/visa.xml",
+            "src/main/res/drawable/background_furniture.xml",
+            "src/main/res/drawable/background_furniture.jpeg",
+            "src/main/res/drawable/beedroom.xml",
+            "src/main/res/drawable/chair.xml",
+            "src/main/res/drawable/kitchen.xml",
+            "src/main/res/drawable/livingroom.xml"
+        )
+    }
+}
