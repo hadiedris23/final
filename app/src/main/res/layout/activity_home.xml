@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Background Image -->
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,19 +12,19 @@
         android:src="@drawable/background_furniture"
         android:contentDescription="Background"/>
 
-    <!-- Dark Overlay -->
+
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000"/>
 
-    <!-- Main Layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- TOP BAR -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -33,6 +33,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/txtAppName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,7 +75,6 @@
                 android:padding="8dp"/>
         </LinearLayout>
 
-        <!-- Scroll Content -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -85,7 +85,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Title -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,7 +94,6 @@
                     android:textColor="#FFFFFF"
                     android:layout_marginBottom="20dp"/>
 
-                <!-- Categories Grid -->
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,7 +101,6 @@
                     android:useDefaultMargins="true"
                     android:padding="8dp">
 
-                    <!-- Bedroom -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardBedroom"
                         android:layout_width="0dp"
@@ -140,7 +137,6 @@
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Kitchen -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardKitchen"
                         android:layout_width="0dp"
@@ -177,7 +173,6 @@
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Living Room -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardLivingRoom"
                         android:layout_width="0dp"
@@ -214,7 +209,6 @@
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Chair / Sofa -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardChair"
                         android:layout_width="0dp"

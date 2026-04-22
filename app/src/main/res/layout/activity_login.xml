@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Background Image -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,20 +10,17 @@
         android:src="@drawable/background_furniture"
         android:contentDescription="Background"/>
 
-    <!-- Dark Overlay -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000"/>
 
-    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- TOP BAR -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -33,6 +29,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/txtAppName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,8 +71,8 @@
                 android:padding="8dp"/>
         </LinearLayout>
 
-        <!-- Page Title -->
         <TextView
+            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
@@ -84,22 +81,28 @@
             android:textColor="#FFFFFF"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:gravity="center"/>
+            android:layout_gravity="center_horizontal"/>
 
-        <!-- Email Input -->
         <EditText
-            android:id="@+id/edtEmail"
+            android:id="@+id/edtUsername"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
             android:background="#D7CCC8"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
+            android:hint="Username"
+            android:inputType="text"
             android:padding="16dp"
             android:textColor="#4E342E"
             android:textColorHint="#4E342E" />
 
-        <!-- Password Input -->
+        <TextView
+            android:id="@+id/txtUsernameError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFCDD2"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:layout_marginBottom="8dp"/>
+
         <EditText
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
@@ -109,10 +112,18 @@
             android:background="#D7CCC8"
             android:textColor="#4E342E"
             android:textColorHint="#4E342E"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
             android:inputType="textPassword"/>
 
-        <!-- Login Button -->
+        <TextView
+            android:id="@+id/txtPasswordError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFCDD2"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
         <Button
             android:id="@+id/btnLoginNow"
             android:layout_width="match_parent"
@@ -120,9 +131,9 @@
             android:text="Login"
             android:textColor="#FFFFFF"
             android:background="#8D6E63"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"/>
 
-        <!-- Optional: Sign Up Link -->
         <TextView
             android:id="@+id/txtSignUp"
             android:layout_width="wrap_content"

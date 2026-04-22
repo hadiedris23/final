@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Background Image -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,19 +12,16 @@
         android:src="@drawable/livingroom"
         android:contentDescription="Background"/>
 
-    <!-- Dark Overlay -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000"/>
 
-    <!-- Main Layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- TOP BAR -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -34,6 +30,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/txtAppName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -75,7 +72,6 @@
                 android:padding="8dp"/>
         </LinearLayout>
 
-        <!-- Scrollable Content -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -87,7 +83,6 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
 
-                <!-- Title -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +92,6 @@
                     android:textColor="#FFFFFF"
                     android:layout_marginBottom="20dp"/>
 
-                <!-- About Us Card -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardShopLocation"
                     android:layout_marginTop="16dp"
@@ -138,7 +132,40 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- History Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardWallet"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:padding="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#D7CCC8">
+
+                        <TextView
+                            android:text="Secure Wallet"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="#4E342E"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="Your virtual wallet is hidden here. Balance: $1,250.00"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="#4E342E"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="16dp"
@@ -171,7 +198,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Fun Facts Card -->
                 <androidx.cardview.widget.CardView
                     android:layout_marginTop="16dp"
                     app:cardCornerRadius="16dp"
@@ -187,6 +213,7 @@
                         android:background="#D7CCC8">
 
                         <TextView
+                            android:id="@+id/txtFunFactsTitle"
                             android:text="Fun Facts"
                             android:textSize="22sp"
                             android:textStyle="bold"

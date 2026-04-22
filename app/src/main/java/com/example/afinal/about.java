@@ -3,7 +3,9 @@ package com.example.afinal;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,19 @@ public class about extends AppCompatActivity {
         Button btnOpenMap = findViewById(R.id.btnOpenMap);
         cardShopLocation.setOnClickListener(v -> openShopLocation());
         btnOpenMap.setOnClickListener(v -> openShopLocation());
+
+        CardView cardWallet = findViewById(R.id.cardWallet);
+        TextView txtFunFactsTitle = findViewById(R.id.txtFunFactsTitle);
+        
+        txtFunFactsTitle.setOnLongClickListener(v -> {
+            if (cardWallet.getVisibility() == View.GONE) {
+                cardWallet.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Wallet revealed!", Toast.LENGTH_SHORT).show();
+            } else {
+                cardWallet.setVisibility(View.GONE);
+            }
+            return true;
+        });
     }
 
     private void openShopLocation() {
