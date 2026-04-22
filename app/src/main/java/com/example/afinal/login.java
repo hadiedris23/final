@@ -69,6 +69,7 @@ public class login extends AppCompatActivity {
                     }
                 }
             } else {
+                // Login Mode
                 if (username.isEmpty()) {
                     txtUsernameError.setText("Please enter username");
                     txtUsernameError.setVisibility(View.VISIBLE);

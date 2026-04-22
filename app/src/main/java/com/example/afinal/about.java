@@ -24,6 +24,7 @@ public class about extends AppCompatActivity {
         cardShopLocation.setOnClickListener(v -> openShopLocation());
         btnOpenMap.setOnClickListener(v -> openShopLocation());
 
+        // Secretly show the wallet when long-pressing "Fun Facts" title
         CardView cardWallet = findViewById(R.id.cardWallet);
         TextView txtFunFactsTitle = findViewById(R.id.txtFunFactsTitle);
         
