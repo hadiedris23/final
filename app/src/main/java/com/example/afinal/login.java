@@ -40,13 +40,13 @@ public class login extends AppCompatActivity {
         txtToggle = findViewById(R.id.txtSignUp);
         txtTitle = findViewById(R.id.txtTitle);
 
-        // وضع المسؤول السري: اضغط مطولاً على العنوان لرؤية كل المستخدمين
+        // Admin Secret Mode: Long click title to see all users
         txtTitle.setOnLongClickListener(v -> {
             String allUsers = dbHelper.getAllUsersAsString();
             new AlertDialog.Builder(this)
-                    .setTitle("قاعدة بيانات المستخدمين (وضع المسؤول)")
+                    .setTitle("Users Database (Admin Mode)")
                     .setMessage(allUsers)
-                    .setPositiveButton("إغلاق", null)
+                    .setPositiveButton("Close", null)
                     .show();
             return true;
         });
@@ -60,22 +60,22 @@ public class login extends AppCompatActivity {
 
             if (isSignUpMode) {
                 if (!validateUsernameFormat(username)) {
-                    txtUsernameError.setText("اسم المستخدم يجب أن لا يحتوي على مسافات");
+                    txtUsernameError.setText("Username must not contain spaces or special characters");
                     txtUsernameError.setVisibility(View.VISIBLE);
                     isValid = false;
                 }
                 if (!validatePasswordFormat(password)) {
-                    txtPasswordError.setText("يجب أن تكون كلمة المرور 7 خانات (أحرف وأرقام)");
+                    txtPasswordError.setText("Password must be at least 7 characters (Letters & Numbers)");
                     txtPasswordError.setVisibility(View.VISIBLE);
                     isValid = false;
                 }
 
                 if (isValid) {
                     if (dbHelper.userExists(username)) {
-                        Toast.makeText(this, "هذا الاسم موجود بالفعل، جرب اسماً آخر.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Username already exists, try another one.", Toast.LENGTH_LONG).show();
                     } else {
                         if (dbHelper.addUser(username, password)) {
-                            Toast.makeText(this, "تم إنشاء الحساب محلياً!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
                             performLogin(username);
                         }
                     }
@@ -86,11 +86,11 @@ public class login extends AppCompatActivity {
                         if (dbHelper.checkUser(username, password)) {
                             performLogin(username);
                         } else {
-                            txtPasswordError.setText("كلمة المرور خاطئة، حاول مرة أخرى");
+                            txtPasswordError.setText("Wrong password, try again");
                             txtPasswordError.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        Toast.makeText(this, "هذا المستخدم غير موجود. يرجى إنشاء حساب.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "User not found. Please sign up.", Toast.LENGTH_LONG).show();
                         toggleMode(true);
                     }
                 }
@@ -118,14 +118,14 @@ public class login extends AppCompatActivity {
     private void toggleMode(boolean signUp) {
         isSignUpMode = signUp;
         clearErrors();
-        btnAction.setText(isSignUpMode ? "إنشاء حساب" : "تسجيل دخول");
-        txtToggle.setText(isSignUpMode ? "لديك حساب بالفعل؟ سجل دخولك" : "ليس لديك حساب؟ سجل الآن");
-        txtTitle.setText(isSignUpMode ? "إنشاء حساب" : "تسجيل دخول");
+        btnAction.setText(isSignUpMode ? "Sign Up" : "Login");
+        txtToggle.setText(isSignUpMode ? "Already have an account? Login" : "Don't have an account? Sign Up");
+        txtTitle.setText(isSignUpMode ? "Create Account" : "Login");
     }
 
     private void performLogin(String username) {
         SessionManager.login(this, username);
-        Toast.makeText(this, "مرحباً بك، " + username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Welcome, " + username, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, home.class));
         finish();
     }
