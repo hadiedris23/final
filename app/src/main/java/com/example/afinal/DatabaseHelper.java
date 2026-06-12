@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -59,5 +60,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         boolean exists = cursor.getCount() > 0;
         cursor.close();
         return exists;
+    }
+
+    // دالة جديدة لجلب كل البيانات لعرضها في التطبيق
+    public String getAllUsersAsString() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS, null);
+        StringBuilder builder = new StringBuilder();
+        
+        if (cursor.moveToFirst()) {
+            do {
+                String user = cursor.getString(1);
+                String pass = cursor.getString(2);
+                builder.append("👤 ").append(user).append("  🔑 ").append(pass).append("\n\n");
+            } while (cursor.moveToNext());
+        } else {
+            builder.append("قاعدة البيانات فارغة.");
+        }
+        cursor.close();
+        return builder.toString();
+    }
+
+    public void showDataInLog() {
+        Log.d("DATABASE_VIEW", getAllUsersAsString());
     }
 }

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Background Image -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,19 +12,16 @@
         android:src="@drawable/livingroom"
         android:contentDescription="Background"/>
 
-    <!-- Dark Overlay -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000"/>
 
-    <!-- Main Layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- TOP BAR -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -76,7 +72,6 @@
                 android:padding="8dp"/>
         </LinearLayout>
 
-        <!-- Scrollable Content -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -88,7 +83,6 @@
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
 
-                <!-- Title -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -98,7 +92,6 @@
                     android:textColor="#FFFFFF"
                     android:layout_marginBottom="20dp"/>
 
-                <!-- About Us Card -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardShopLocation"
                     android:layout_marginTop="16dp"
@@ -139,7 +132,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Hidden Wallet Section -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardWallet"
                     android:layout_marginTop="16dp"

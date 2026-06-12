@@ -2,16 +2,22 @@ package com.example.afinal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
-public class CategoryActivity extends AppCompatActivity {
-    public static final String EXTRA_CATEGORY = "extra_category";
+public class CategoryFragment extends Fragment {
+
+    private static final String ARG_CATEGORY = "extra_category";
 
     private static final int[] CARD_IDS = {R.id.cardProduct1, R.id.cardProduct2, R.id.cardProduct3, R.id.cardProduct4};
     private static final int[] IMAGE_IDS = {R.id.imgProduct1, R.id.imgProduct2, R.id.imgProduct3, R.id.imgProduct4};
@@ -21,24 +27,38 @@ public class CategoryActivity extends AppCompatActivity {
     private static final int[] PRICE_IDS = {R.id.txtPrice1, R.id.txtPrice2, R.id.txtPrice3, R.id.txtPrice4};
     private static final int[] ADD_IDS = {R.id.btnAdd1, R.id.btnAdd2, R.id.btnAdd3, R.id.btnAdd4};
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-        NavHelper.bindTopBar(this);
+    private String categoryName;
 
-        String category = getIntent().getStringExtra(EXTRA_CATEGORY);
-        if (category == null || category.trim().isEmpty()) {
-            category = "Bedroom";
-        }
-
-        TextView title = findViewById(R.id.txtCategoryTitle);
-        title.setText(category);
-
-        bindProducts(category);
+    public static CategoryFragment newInstance(String category) {
+        CategoryFragment fragment = new CategoryFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_CATEGORY, category);
+        fragment.setArguments(args);
+        return fragment;
     }
 
-    private void bindProducts(String category) {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            categoryName = getArguments().getString(ARG_CATEGORY);
+        }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_category, container, false);
+        
+        TextView title = view.findViewById(R.id.txtCategoryTitle);
+        title.setText(categoryName != null ? categoryName : "Bedroom");
+
+        bindProducts(view, categoryName != null ? categoryName : "Bedroom");
+        
+        return view;
+    }
+
+    private void bindProducts(View root, String category) {
         String key = normalizeCategoryKey(category);
         for (int i = 0; i < 4; i++) {
             int index = i + 1;
@@ -50,13 +70,13 @@ public class CategoryActivity extends AppCompatActivity {
             int[] gallery = loadGallery(key, index, fallbackImage);
             int imageRes = gallery[0];
 
-            ImageView image = findViewById(IMAGE_IDS[i]);
-            TextView nameView = findViewById(NAME_IDS[i]);
-            TextView descView = findViewById(DESC_IDS[i]);
-            TextView ratingView = findViewById(RATING_IDS[i]);
-            TextView priceView = findViewById(PRICE_IDS[i]);
-            Button addButton = findViewById(ADD_IDS[i]);
-            CardView card = findViewById(CARD_IDS[i]);
+            ImageView image = root.findViewById(IMAGE_IDS[i]);
+            TextView nameView = root.findViewById(NAME_IDS[i]);
+            TextView descView = root.findViewById(DESC_IDS[i]);
+            TextView ratingView = root.findViewById(RATING_IDS[i]);
+            TextView priceView = root.findViewById(PRICE_IDS[i]);
+            Button addButton = root.findViewById(ADD_IDS[i]);
+            CardView card = root.findViewById(CARD_IDS[i]);
 
             image.setImageResource(imageRes);
             nameView.setText(name);
@@ -65,8 +85,8 @@ public class CategoryActivity extends AppCompatActivity {
             priceView.setText(price);
 
             addButton.setOnClickListener(v -> {
-                CartManager.addItem(this, name, price);
-                Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show();
+                CartManager.addItem(requireContext(), name, price);
+                Toast.makeText(requireContext(), "Added to cart", Toast.LENGTH_SHORT).show();
             });
 
             card.setOnClickListener(v -> openDetails(name, price, rating, desc, imageRes, gallery));
@@ -78,7 +98,7 @@ public class CategoryActivity extends AppCompatActivity {
         int[] images = new int[4];
         for (int i = 0; i < 4; i++) {
             String fileName = categoryKey + "_p" + productNumber + "_" + (i + 1);
-            int resId = getResources().getIdentifier(fileName, "drawable", getPackageName());
+            int resId = getResources().getIdentifier(fileName, "drawable", requireActivity().getPackageName());
             images[i] = resId == 0 ? fallback : resId;
         }
         return images;
@@ -88,17 +108,13 @@ public class CategoryActivity extends AppCompatActivity {
         String normalized = category.toLowerCase();
         normalized = normalized.replace(" ", "");
         normalized = normalized.replace("/", "");
-        if (normalized.contains("living")) {
-            return "livingroom";
-        }
-        if (normalized.contains("chair")) {
-            return "chair";
-        }
+        if (normalized.contains("living")) return "livingroom";
+        if (normalized.contains("chair")) return "chair";
         return normalized;
     }
 
     private void openDetails(String name, String price, String rating, String desc, int mainImage, int[] gallery) {
-        Intent intent = new Intent(this, ProductDetailActivity.class);
+        Intent intent = new Intent(requireContext(), ProductDetailActivity.class);
         intent.putExtra(ProductDetailActivity.EXTRA_NAME, name);
         intent.putExtra(ProductDetailActivity.EXTRA_PRICE, price);
         intent.putExtra(ProductDetailActivity.EXTRA_RATING, rating);
@@ -110,19 +126,9 @@ public class CategoryActivity extends AppCompatActivity {
 
     private int suitablePrice(String category, int index) {
         String key = normalizeCategoryKey(category);
-        if ("chair".equals(key)) {
-            // Chair: 500-1000, Sofa: 1000-2000
-            return index <= 2 ? (500 + ((index - 1) * 250)) : (1000 + ((index - 3) * 1000));
-        }
-        if ("kitchen".equals(key)) {
-            // Tables: 1500-3000
-            return 1500 + ((index - 1) * 500);
-        }
-        if ("livingroom".equals(key)) {
-            // Sofas in living room: 1000-2000
-            return 1000 + ((index - 1) * 333);
-        }
-        // Bedroom default
+        if ("chair".equals(key)) return index <= 2 ? (500 + ((index - 1) * 250)) : (1000 + ((index - 3) * 1000));
+        if ("kitchen".equals(key)) return 1500 + ((index - 1) * 500);
+        if ("livingroom".equals(key)) return 1000 + ((index - 1) * 333);
         return 900 + ((index - 1) * 250);
     }
 
@@ -136,33 +142,17 @@ public class CategoryActivity extends AppCompatActivity {
 
     private int imageForCategory(String category) {
         String normalized = category.toLowerCase();
-        if (normalized.contains("kitchen")) {
-            return R.drawable.kitchen;
-        }
-        if (normalized.contains("living")) {
-            return R.drawable.livingroom;
-        }
-        if (normalized.contains("chair")) {
-            return R.drawable.chair;
-        }
+        if (normalized.contains("kitchen")) return R.drawable.kitchen;
+        if (normalized.contains("living")) return R.drawable.livingroom;
+        if (normalized.contains("chair")) return R.drawable.chair;
         return R.drawable.beedroom;
     }
 
     private String productName(String category, int index) {
         String key = normalizeCategoryKey(category);
-        if ("chair".equals(key)) {
-            String[] names = {"Chair Classic", "Chair Modern", "Sofa Compact", "Sofa Family"};
-            return names[index - 1];
-        }
-        if ("kitchen".equals(key)) {
-            String[] names = {"Dining Table S", "Dining Table M", "Dining Table L", "Dining Table XL"};
-            return names[index - 1];
-        }
-        if ("livingroom".equals(key)) {
-            String[] names = {"Sofa One", "Sofa Two", "Sofa Three", "Sofa Premium"};
-            return names[index - 1];
-        }
-        String[] names = {"Bed Frame", "Wardrobe", "Night Stand", "Dresser"};
-        return names[index - 1];
+        if ("chair".equals(key)) return new String[]{"Chair Classic", "Chair Modern", "Sofa Compact", "Sofa Family"}[index - 1];
+        if ("kitchen".equals(key)) return new String[]{"Dining Table S", "Dining Table M", "Dining Table L", "Dining Table XL"}[index - 1];
+        if ("livingroom".equals(key)) return new String[]{"Sofa One", "Sofa Two", "Sofa Three", "Sofa Premium"}[index - 1];
+        return new String[]{"Bed Frame", "Wardrobe", "Night Stand", "Dresser"}[index - 1];
     }
 }

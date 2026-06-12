@@ -3,71 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="Background"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_furniture" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000" />
+    <!-- حذفت الخلفية والطبقة المظلمة هنا لأنها موجودة في الصفحة الرئيسية (activity_home) -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#66000000"
-            android:gravity="center_vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Luxury Store"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtHome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Home"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/txtLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Login"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/txtCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Cart"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/txtAbout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="About"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
+        <!-- تم حذف شريط التنقل المكرر من هنا -->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -89,26 +32,23 @@
                     android:textSize="28sp"
                     android:textStyle="bold" />
 
+                <!-- قائمة المنتجات كما هي -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardProduct1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="12dp">
-
                         <ImageView
                             android:id="@+id/imgProduct1"
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
-                            android:contentDescription="Product image"
                             android:scaleType="centerCrop"
                             android:src="@drawable/beedroom" />
-
                         <TextView
                             android:id="@+id/txtName1"
                             android:layout_width="match_parent"
@@ -117,13 +57,11 @@
                             android:text="Name"
                             android:textSize="18sp"
                             android:textStyle="bold" />
-
                         <TextView
                             android:id="@+id/txtDesc1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Description" />
-
                         <TextView
                             android:id="@+id/txtRating1"
                             android:layout_width="match_parent"
@@ -131,7 +69,6 @@
                             android:layout_marginTop="4dp"
                             android:text="Rating: 4.5/5"
                             android:textStyle="bold" />
-
                         <TextView
                             android:id="@+id/txtPrice1"
                             android:layout_width="wrap_content"
@@ -141,7 +78,6 @@
                             android:textColor="#FFFFFF"
                             android:text="$0"
                             android:textStyle="bold" />
-
                         <Button
                             android:id="@+id/btnAdd1"
                             android:layout_width="wrap_content"
@@ -151,6 +87,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <!-- باقي البطاقات (تم الحفاظ عليها) -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardProduct2"
                     android:layout_width="match_parent"
@@ -165,7 +102,6 @@
                             android:id="@+id/imgProduct2"
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
-                            android:contentDescription="Product image"
                             android:scaleType="centerCrop"
                             android:src="@drawable/beedroom" />
                         <TextView
@@ -220,7 +156,6 @@
                             android:id="@+id/imgProduct3"
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
-                            android:contentDescription="Product image"
                             android:scaleType="centerCrop"
                             android:src="@drawable/beedroom" />
                         <TextView
@@ -275,7 +210,6 @@
                             android:id="@+id/imgProduct4"
                             android:layout_width="match_parent"
                             android:layout_height="160dp"
-                            android:contentDescription="Product image"
                             android:scaleType="centerCrop"
                             android:src="@drawable/beedroom" />
                         <TextView
@@ -315,6 +249,7 @@
                             android:text="Add to Cart" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

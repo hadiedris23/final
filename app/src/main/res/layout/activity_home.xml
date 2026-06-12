@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,19 +11,17 @@
         android:src="@drawable/background_furniture"
         android:contentDescription="Background"/>
 
-
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+        <!-- TOP BAR -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -75,181 +72,174 @@
                 android:padding="8dp"/>
         </LinearLayout>
 
-        <ScrollView
+        <!-- Fragment Container -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <!-- Default Home Content (Inside ScrollView) -->
+            <ScrollView
+                android:id="@+id/home_scroll_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Luxury Furniture Store"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginBottom="20dp"/>
-
-                <GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:useDefaultMargins="true"
-                    android:padding="8dp">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardBedroom"
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        card_view:cardCornerRadius="20dp"
-                        card_view:cardElevation="8dp"
-                        android:layout_margin="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Luxury Furniture Store"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginBottom="20dp"/>
 
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:useDefaultMargins="true"
+                        android:padding="8dp">
 
-                            <ImageView
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardBedroom"
+                            android:layout_width="0dp"
+                            android:layout_height="180dp"
+                            android:layout_columnWeight="1"
+                            card_view:cardCornerRadius="20dp"
+                            card_view:cardElevation="8dp"
+                            android:layout_margin="8dp">
+
+                            <FrameLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/beedroom"
-                                android:contentDescription="Bedroom"/>
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/beedroom"
+                                    android:contentDescription="Bedroom"/>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#55000000"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Bedroom"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
 
-                            <View
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardKitchen"
+                            android:layout_width="0dp"
+                            android:layout_height="180dp"
+                            android:layout_columnWeight="1"
+                            card_view:cardCornerRadius="20dp"
+                            card_view:cardElevation="8dp"
+                            android:layout_margin="8dp">
+
+                            <FrameLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#55000000"/>
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/kitchen"
+                                    android:contentDescription="Kitchen"/>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#55000000"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kitchen"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Bedroom"
-                                android:textColor="#FFFFFF"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </androidx.cardview.widget.CardView>
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardLivingRoom"
+                            android:layout_width="0dp"
+                            android:layout_height="180dp"
+                            android:layout_columnWeight="1"
+                            card_view:cardCornerRadius="20dp"
+                            card_view:cardElevation="8dp"
+                            android:layout_margin="8dp">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardKitchen"
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        card_view:cardCornerRadius="20dp"
-                        card_view:cardElevation="8dp"
-                        android:layout_margin="8dp">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
+                            <FrameLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/kitchen"
-                                android:contentDescription="Kitchen"/>
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/livingroom"
+                                    android:contentDescription="Living Room"/>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#55000000"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Living Room"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
 
-                            <View
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardChair"
+                            android:layout_width="0dp"
+                            android:layout_height="180dp"
+                            android:layout_columnWeight="1"
+                            card_view:cardCornerRadius="20dp"
+                            card_view:cardElevation="8dp"
+                            android:layout_margin="8dp">
+
+                            <FrameLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#55000000"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Kitchen"
-                                android:textColor="#FFFFFF"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardLivingRoom"
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        card_view:cardCornerRadius="20dp"
-                        card_view:cardElevation="8dp"
-                        android:layout_margin="8dp">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/livingroom"
-                                android:contentDescription="Living Room"/>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#55000000"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Living Room"
-                                android:textColor="#FFFFFF"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardChair"
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        card_view:cardCornerRadius="20dp"
-                        card_view:cardElevation="8dp"
-                        android:layout_margin="8dp">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/chair"
-                                android:contentDescription="Chair"/>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="#55000000"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Chair / Sofa"
-                                android:textColor="#FFFFFF"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_gravity="center"/>
-                        </FrameLayout>
-                    </androidx.cardview.widget.CardView>
-
-                </GridLayout>
-
-            </LinearLayout>
-        </ScrollView>
-
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/chair"
+                                    android:contentDescription="Chair"/>
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="#55000000"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Chair / Sofa"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center"/>
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+                    </GridLayout>
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
     </LinearLayout>
-
 </FrameLayout>

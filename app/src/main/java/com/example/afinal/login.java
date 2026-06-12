@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.regex.Pattern;
@@ -21,6 +22,7 @@ public class login extends AppCompatActivity {
     private TextView txtUsernameError, txtPasswordError;
     private Button btnAction;
     private TextView txtToggle;
+    private TextView txtTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,18 @@ public class login extends AppCompatActivity {
         txtPasswordError = findViewById(R.id.txtPasswordError);
         btnAction = findViewById(R.id.btnLoginNow);
         txtToggle = findViewById(R.id.txtSignUp);
+        txtTitle = findViewById(R.id.txtTitle);
+
+        // وضع المسؤول السري: اضغط مطولاً على العنوان لرؤية كل المستخدمين
+        txtTitle.setOnLongClickListener(v -> {
+            String allUsers = dbHelper.getAllUsersAsString();
+            new AlertDialog.Builder(this)
+                    .setTitle("قاعدة بيانات المستخدمين (وضع المسؤول)")
+                    .setMessage(allUsers)
+                    .setPositiveButton("إغلاق", null)
+                    .show();
+            return true;
+        });
 
         btnAction.setOnClickListener(v -> {
             clearErrors();
@@ -46,55 +60,44 @@ public class login extends AppCompatActivity {
 
             if (isSignUpMode) {
                 if (!validateUsernameFormat(username)) {
-                    txtUsernameError.setText("the username not include the spaces or anything, just the letters and numbers");
+                    txtUsernameError.setText("اسم المستخدم يجب أن لا يحتوي على مسافات");
                     txtUsernameError.setVisibility(View.VISIBLE);
                     isValid = false;
                 }
                 if (!validatePasswordFormat(password)) {
-                    txtPasswordError.setText("you have a wrong password, you have to include certain letters");
+                    txtPasswordError.setText("يجب أن تكون كلمة المرور 7 خانات (أحرف وأرقام)");
                     txtPasswordError.setVisibility(View.VISIBLE);
                     isValid = false;
                 }
 
                 if (isValid) {
                     if (dbHelper.userExists(username)) {
-                        Toast.makeText(this, "This username exists, change it. If this username is for you, do a login, you don't have to sign up.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "هذا الاسم موجود بالفعل، جرب اسماً آخر.", Toast.LENGTH_LONG).show();
                     } else {
                         if (dbHelper.addUser(username, password)) {
-                            Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "تم إنشاء الحساب محلياً!", Toast.LENGTH_SHORT).show();
                             performLogin(username);
-                        } else {
-                            Toast.makeText(this, "Error creating account", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
             } else {
-                // Login Mode
-                if (username.isEmpty()) {
-                    txtUsernameError.setText("Please enter username");
-                    txtUsernameError.setVisibility(View.VISIBLE);
-                    isValid = false;
-                }
-                
                 if (isValid) {
                     if (dbHelper.userExists(username)) {
                         if (dbHelper.checkUser(username, password)) {
                             performLogin(username);
                         } else {
-                            txtPasswordError.setText("you have to put a right password or the password is wrong");
+                            txtPasswordError.setText("كلمة المرور خاطئة، حاول مرة أخرى");
                             txtPasswordError.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        Toast.makeText(this, "User does not exist. Please sign up.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "هذا المستخدم غير موجود. يرجى إنشاء حساب.", Toast.LENGTH_LONG).show();
                         toggleMode(true);
                     }
                 }
             }
         });
 
-        txtToggle.setOnClickListener(v -> {
-            toggleMode(!isSignUpMode);
-        });
+        txtToggle.setOnClickListener(v -> toggleMode(!isSignUpMode));
     }
 
     private void clearErrors() {
@@ -109,28 +112,20 @@ public class login extends AppCompatActivity {
     private boolean validatePasswordFormat(String password) {
         if (password.length() < 7) return false;
         if (password.contains(" ")) return false;
-        boolean hasLetter = Pattern.compile("[a-zA-Z]").matcher(password).find();
-        boolean hasDigit = Pattern.compile("[0-9]").matcher(password).find();
-        return hasLetter && hasDigit;
+        return Pattern.compile("[a-zA-Z]").matcher(password).find() && Pattern.compile("[0-9]").matcher(password).find();
     }
 
     private void toggleMode(boolean signUp) {
         isSignUpMode = signUp;
         clearErrors();
-        if (isSignUpMode) {
-            btnAction.setText("Sign Up");
-            txtToggle.setText("Already have an account? Login");
-            ((TextView)findViewById(R.id.txtTitle)).setText("Sign Up");
-        } else {
-            btnAction.setText("Login");
-            txtToggle.setText("Don't have an account? Sign Up");
-            ((TextView)findViewById(R.id.txtTitle)).setText("Login");
-        }
+        btnAction.setText(isSignUpMode ? "إنشاء حساب" : "تسجيل دخول");
+        txtToggle.setText(isSignUpMode ? "لديك حساب بالفعل؟ سجل دخولك" : "ليس لديك حساب؟ سجل الآن");
+        txtTitle.setText(isSignUpMode ? "إنشاء حساب" : "تسجيل دخول");
     }
 
     private void performLogin(String username) {
         SessionManager.login(this, username);
-        Toast.makeText(this, "Welcome, " + username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "مرحباً بك، " + username, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, home.class));
         finish();
     }

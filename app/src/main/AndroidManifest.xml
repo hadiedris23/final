@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- صلاحيات الإشعارات والخدمات الخلفية -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,54 +15,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final">
-        <activity
-            android:name=".kitchen"
-            android:exported="false" />
-        <activity
-            android:name=".chairactivity"
-            android:exported="false" />
-        <activity
-            android:name=".bedroom"
-            android:exported="false" />
-        <activity
-            android:name=".livingroom"
-            android:exported="false" />
-        <activity
-            android:name=".ProductDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".login"
-            android:exported="false" />
-        <activity
-            android:name=".about"
-            android:exported="false" />
-        <activity
-            android:name=".pay"
-            android:exported="false" />
-        <activity
-            android:name=".cart"
-            android:exported="false" />
-        <activity
-            android:name=".store"
-            android:exported="false" />
-        <activity
-            android:name=".ProductActivity"
-            android:exported="false" />
-        <activity
-            android:name=".home"
-            android:exported="false" />
+
+        <!-- الصفحة الأساسية (موجه الدخول) -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- صفحات التطبيق الأساسية -->
+        <activity android:name=".login" android:exported="false" android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".home" android:exported="false" />
+        <activity android:name=".about" android:exported="false" />
+        <activity android:name=".cart" android:exported="false" />
+        <activity android:name=".pay" android:exported="false" />
+        <activity android:name=".ProductDetailActivity" android:exported="false" />
+
+        <!-- ميزات متقدمة: مستقبل الإشعارات والخدمة الموسيقية -->
+        <receiver android:name=".NotificationReceiver" android:exported="false" />
+        <service android:name=".BackgroundMusicService" android:exported="false" />
+
     </application>
 
 </manifest>

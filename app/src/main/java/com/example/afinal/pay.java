@@ -1,6 +1,7 @@
 package com.example.afinal;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
@@ -11,7 +12,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Locale;
+
 public class pay extends AppCompatActivity {
+
+    private TextView txtTimer;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +26,43 @@ public class pay extends AppCompatActivity {
 
         NavHelper.bindTopBar(this);
 
+        txtTimer = findViewById(R.id.txtTimer);
         TextView total = findViewById(R.id.txtTotalAmount);
         
-        // Use a default amount if CartManager isn't available or empty
-        // In a real app, this should come from the cart
         total.setText("$370");
 
         findViewById(R.id.btnGooglePay).setOnClickListener(v -> showGooglePayDialog());
         findViewById(R.id.btnPayPal).setOnClickListener(v -> showPayPalDialog());
         findViewById(R.id.btnVisa).setOnClickListener(v -> showVisaDialog());
+
+        startTimer();
+    }
+
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(600000, 1000) { // 10 minutes
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long minutes = (millisUntilFinished / 1000) / 60;
+                long seconds = (millisUntilFinished / 1000) % 60;
+                String timeFormatted = String.format(Locale.getDefault(), "Time left: %02d:%02d", minutes, seconds);
+                txtTimer.setText(timeFormatted);
+            }
+
+            @Override
+            public void onFinish() {
+                txtTimer.setText("Time left: 00:00");
+                Toast.makeText(pay.this, "Payment time expired!", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 
     private void showGooglePayDialog() {
@@ -133,8 +167,10 @@ public class pay extends AppCompatActivity {
     }
 
     private void processPayment() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         Toast.makeText(this, "Payment Successful!", Toast.LENGTH_LONG).show();
-        // Clear cart if CartManager exists
         try {
             CartManager.clear(this);
         } catch (Exception ignored) {}
