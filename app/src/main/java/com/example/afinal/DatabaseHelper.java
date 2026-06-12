@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "UserDB";
     // رفع الإصدار إلى 5 لضمان إعادة تهيئة الجداول
-    private static final int DATABASE_VERSION = 5; 
+    private static final int DATABASE_VERSION = 5;
     
     private static final String TABLE_USERS = "users";
     private static final String COL_ID = "id";

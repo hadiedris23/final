@@ -1,9 +1,16 @@
 package com.example.afinal;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.InputType;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,6 +18,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Locale;
 
@@ -18,6 +28,7 @@ public class pay extends AppCompatActivity {
 
     private TextView txtTimer;
     private CountDownTimer countDownTimer;
+    private static final String CHANNEL_ID = "order_confirmation_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +36,7 @@ public class pay extends AppCompatActivity {
         setContentView(R.layout.activity_pay);
 
         NavHelper.bindTopBar(this);
+        requestNotificationPermission();
 
         txtTimer = findViewById(R.id.txtTimer);
         TextView total = findViewById(R.id.txtTotalAmount);
@@ -36,6 +48,14 @@ public class pay extends AppCompatActivity {
         findViewById(R.id.btnVisa).setOnClickListener(v -> showVisaDialog());
 
         startTimer();
+    }
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
     }
 
     private void startTimer() {
@@ -55,14 +75,6 @@ public class pay extends AppCompatActivity {
                 finish();
             }
         }.start();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
     }
 
     private void showGooglePayDialog() {
@@ -170,10 +182,60 @@ public class pay extends AppCompatActivity {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
+        
+        // إرسال الإشعار فور نجاح العملية
+        sendOrderNotification();
+        
         Toast.makeText(this, "Payment Successful!", Toast.LENGTH_LONG).show();
         try {
             CartManager.clear(this);
         } catch (Exception ignored) {}
         finish();
+    }
+
+    private void sendOrderNotification() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // إنشاء القناة (مطلوب لأندرويد 8 فما فوق)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Order Confirmations",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel.setDescription("Notifications for successful orders");
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
+        // تحديد ما سيحدث عند الضغط على الإشعار (فتح صفحة المتجر)
+        Intent intent = new Intent(this, home.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        // بناء محتوى الإشعار
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Order Confirmed! 🎉")
+                .setContentText("Your purchase was successful. We are preparing your furniture!")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        // عرض الإشعار
+        if (notificationManager != null) {
+            notificationManager.notify(1, builder.build());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 }
